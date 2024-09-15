@@ -1,0 +1,148 @@
+{
+"BaseFare": {
+"12 kVA": {
+"Subscription": 228.48,
+"Base": 0.2516
+},
+"15 kVA": {
+"Subscription": 264.84,
+"Base": 0.2516
+},
+"18 kVA": {
+"Subscription": 301.08,
+"Base": 0.2516
+},
+"24 kVA": {
+"Subscription": 381.12,
+"Base": 0.2516
+},
+"3 kVA": {
+"Subscription": 115.56,
+"Base": 0.2516
+},
+"30 kVA": {
+"Subscription": 449.28,
+"Base": 0.2516
+},
+"36 kVA": {
+"Subscription": 537.84,
+"Base": 0.2516
+},
+"6 kVA": {
+"Subscription": 151.2,
+"Base": 0.2516
+},
+"9 kVA": {
+"Subscription": 189.48,
+"Base": 0.2516
+}
+},
+"HchpFare": {
+"12 kVA": {
+"Subscription": 241.56,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"15 kVA": {
+"Subscription": 280.8,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"18 kVA": {
+"Subscription": 319.68,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"24 kVA": {
+"Subscription": 401.28,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"30 kVA": {
+"Subscription": 475.56,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"36 kVA": {
+"Subscription": 537.48,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"6 kVA": {
+"Subscription": 156.12,
+"Hc": 0.2068,
+"Hp": 0.27
+},
+"9 kVA": {
+"Subscription": 200.4,
+"Hc": 0.2068,
+"Hp": 0.27
+}
+},
+"TempoFare": {
+"12 kVA": {
+"Subscription": 233.28,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"15 kVA": {
+"Subscription": 269.4,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"18 kVA": {
+"Subscription": 305.28,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"30 kVA": {
+"Subscription": 459.48,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"36 kVA": {
+"Subscription": 533.04,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"6 kVA": {
+"Subscription": 155.52,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+},
+"9 kVA": {
+"Subscription": 193.92,
+"BlueHC": 0.1296,
+"BlueHP": 0.1609,
+"WhiteHC": 0.1486,
+"WhiteHP": 0.1894,
+"RedHC": 0.1568,
+"RedHP": 0.7562
+}
+},
+"DateFare": "2024-09-07T10:53:24.329516236+02:00"
+}

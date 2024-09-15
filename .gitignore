@@ -1,0 +1,9 @@
+#
+*.exe
+go.sum
+guiEDF
+
+*.test
+
+.vscode
+__debug*
