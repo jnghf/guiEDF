@@ -2,12 +2,13 @@ package edf
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/widget"
-	//"EDF/guiEDF/edf"
 )
 
 type hoursSlot struct {
@@ -15,17 +16,14 @@ type hoursSlot struct {
 	end   int
 }
 
-var buttons []fyne.CanvasObject //{}
-
 /*
 Création fenêtre de dialogue
 pour la saisie des créneaux Heures Creuses
 pas de 30mn (0.5h)
 */
 func NewHoursDialog(win fyne.Window) {
-	//fmt.Println(s)
 	//48 boutons controlables à la souris (24h*2)
-	buttons = []fyne.CanvasObject{}
+	buttons := []fyne.CanvasObject{}
 	for i := 0; i < 24*2; i++ {
 		buttons = append(buttons, NewHoldableButton(""))
 	}
@@ -52,60 +50,68 @@ func NewHoursDialog(win fyne.Window) {
 		widget.NewFormItem("", widget.NewLabel("")), // pour espace
 	}
 
+	slotHC, err := buildHeuresCreuses(HcEntry.Text)
+	if err == nil {
+		updateHoursDialog(buttons, slotHC)
+	}
+
 	dialog.ShowForm("Créneaux Heures Creuses", "Valider", "Annuler", items, func(b bool) {
 		if !b {
 			//  Annuler
 			return
 		} else {
 			// Valider
-			//str := find_slots(buttons)
 			HcEntry.SetText(find_slots(buttons))
 		}
 	}, win)
 
 }
 
-// func updateHoursDialog(slotHC []HCreuses) {
-// 	for _, slot := range slotHC {
-// 		sp := strings.Split(slot.hstart, ":")
-// 		h, _ := strconv.Atoi(sp[0])
-// 		m, _ := strconv.Atoi(sp[1])
-// 		hs := h*2 + m/2
+/*
+Conversion "hh:mn" --> int  (0 .. 47 ; pas de 30mn)
+*/
+func hmToInt(str string) int {
+	sp := strings.Split(str, ":")
+	h, _ := strconv.Atoi(sp[0])
+	m, _ := strconv.Atoi(sp[1])
+	return h*2 + m/30
+}
 
-// 		sp = strings.Split(slot.hend, ":")
-// 		h, _ = strconv.Atoi(sp[0])
-// 		m, _ = strconv.Atoi(sp[1])
-// 		he := h*2 + m/2
-// 		fmt.Println("BUTTONS: ", len(buttons)) ///
-// 		if len(buttons) == 0 {
-// 			//NewHoursDialog(win)
-// 			InitButtons()
-// 		}
-// 		//  Raz boutons HC
-// 		for i := 0; i < 48; i++ {
-// 			buttons[i].(*HoldableButton).FocusLost()
-// 			buttons[i].(*HoldableButton).On = false
-// 		}
-// 		fmt.Println("Hs: ", hs, " He: ", he)
-// 		if he > hs {
-// 			for i := hs; i < he; i++ {
-// 				buttons[i].(*HoldableButton).FocusGained()
-// 				buttons[i].(*HoldableButton).On = true
-// 			}
-// 		} else {
-// 			//  chevauchement 00h00
-// 			for i := hs; i < 48; i++ {
-// 				buttons[i].(*HoldableButton).FocusGained()
-// 				buttons[i].(*HoldableButton).On = true
-// 			}
-// 			for i := 0; i < he; i++ {
-// 				buttons[i].(*HoldableButton).FocusGained()
-// 				buttons[i].(*HoldableButton).On = true
-// 			}
-// 		}
+/*
+Mise à jour des boutons Heures Creuses en fonction d'une entrée manuelle
+"hh:mn-hh:mn,hh:mn-hh:mn,   ..........."
+*/
 
-// 	}
-// }
+func updateHoursDialog(buttons []fyne.CanvasObject, slotHC []HCreuses) {
+	//  Raz boutons HC
+	for i := 0; i < 48; i++ {
+		buttons[i].(*HoldableButton).FocusLost()
+		buttons[i].(*HoldableButton).On = false
+	}
+
+	for _, slot := range slotHC {
+		hs := hmToInt(slot.hstart)
+		he := hmToInt(slot.hend)
+
+		if he > hs {
+			for i := hs; i < he; i++ {
+				buttons[i].(*HoldableButton).FocusGained()
+				buttons[i].(*HoldableButton).On = true
+			}
+		} else {
+			//  chevauchement 00h00
+			for i := hs; i < 48; i++ {
+				buttons[i].(*HoldableButton).FocusGained()
+				buttons[i].(*HoldableButton).On = true
+			}
+			for i := 0; i < he; i++ {
+				buttons[i].(*HoldableButton).FocusGained()
+				buttons[i].(*HoldableButton).On = true
+			}
+		}
+
+	}
+}
 
 /*
 Conversion entier = 48 * 0.5 h en string "hh:mn"
@@ -176,9 +182,5 @@ func find_slots(hourButtons []fyne.CanvasObject) string {
 		hourSlots = hourSlots[:len(hourSlots)-1]
 	}
 
-	fmt.Println("SLOTS; ", hourSlots)             ////
-	fmt.Println("SLT:", slotsToString(hourSlots)) /////
-
-	//HcEntry.SetText(slotsToString(hourSlots))
 	return slotsToString(hourSlots)
 }

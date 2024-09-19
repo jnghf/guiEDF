@@ -59,7 +59,6 @@ Mouvement souris sur le bouton
 */
 func (h *HoldableButton) MouseIn(*desktop.MouseEvent) {
 	//log.Println("event ", downMemo, onMemo, h.Text)
-
 	if downMemo {
 		if onMemo {
 			h.FocusGained()

@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	//"runtime"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -55,14 +53,12 @@ Mise à jour créneau HC par défaut
 func confirmCallback(response bool) {
 	if !response {
 		HcEntry.SetText("22:00-06:00")
-		//slotHC, _ := buildHeuresCreuses(HcEntry.Text)
-
-		//updateHoursDialog(slotHC)
 	}
 }
 
 /*
- */
+Calcul des consommation
+*/
 func analyze(win fyne.Window) {
 	slotHC, err := buildHeuresCreuses(HcEntry.Text)
 	if err != nil {
@@ -73,7 +69,6 @@ func analyze(win fyne.Window) {
 		cnf.SetConfirmText("OK")
 		cnf.Show()
 	} else {
-		//updateHoursDialog(slotHC)
 		consosYear := conso_totale(data, datesTempo, slotHC)
 
 		prices := findPriceByPower(powerSelection)
@@ -89,7 +84,7 @@ func analyze(win fyne.Window) {
 Affichage de l'aide pour l'application
 */
 func displayHelp() {
-	helpByte, err := os.ReadFile("./aide.txt")
+	helpByte, err := os.ReadFile("./AIDE.txt")
 	if err == nil {
 		largeText.SetText(string(helpByte))
 	}
@@ -126,9 +121,6 @@ func dialogEdfTarif(win fyne.Window) fyne.CanvasObject {
 	var err error
 
 	edfTarifLabel := widget.NewLabel("Tarifs EDF au: ")
-	// edfTarifButton := widget.NewButton("Tarifs EDF au:", func() {
-	// 	NewHoursDialog(win)
-	// })
 	edfDateLabel := widget.NewLabel("--/--/----         ")
 	edfTarifs, err = loadFare()
 	if err != nil {
@@ -159,14 +151,11 @@ func dialogEdfTarif(win fyne.Window) fyne.CanvasObject {
 Container définition créneaux HC
 */
 func dialogHeuresCreuses() fyne.CanvasObject {
-	//hcLabel := widget.NewLabel("Créneaux H. Creuses ")
 	hcButton := widget.NewButton(" Créneaux H. Creuses ", func() {
 		NewHoursDialog(win)
 	})
 	hcButton.Resize(fyne.NewSize(160, 36))
 	hcButton.Move(fyne.NewPos(10, 0))
-	// hcLabel.Resize(fyne.NewSize(140, 36))
-	// hcLabel.Move(fyne.NewPos(0, 0))
 	HcEntry = widget.NewEntry()
 	HcEntry.SetPlaceHolder("hh:mn-hh:mn,hh:mn-hh:mn")
 
@@ -189,7 +178,6 @@ func dialogHeuresCreuses() fyne.CanvasObject {
 	HcEntry.Move(fyne.NewPos(180, 0))
 
 	return container.NewWithoutLayout(
-		//hcLabel, HcEntry,
 		hcButton, HcEntry,
 	)
 }
@@ -380,7 +368,7 @@ func buildWinEDF(app fyne.App, win fyne.Window) fyne.CanvasObject {
 Fenêtre principale - caractéristiques
 */
 func NewWinEDF(app fyne.App) fyne.Window {
-	win = app.NewWindow("Comparaison Tarifs EDF V1.0")
+	win = app.NewWindow("Comparaison Tarifs EDF V1.1")
 	ctn := container.NewVBox(buildWinEDF(app, win))
 	win.SetContent(ctn)
 	win.Resize(fyne.NewSize(550, 600))

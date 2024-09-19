@@ -1,0 +1,8 @@
+2024/09/19: Version 1.1
+
+
+Ajout dela saisie graphique des créneaux Heures Creuses
+
+2024/09/19:  La recupération des tarifs Tempo ne fonctionne plus
+             Actuellement non disponible sur le site
+             https://www.jechange.fr/energie/edf/tarifs#tarifs-reglementes

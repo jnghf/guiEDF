@@ -123,14 +123,14 @@ func updateTempo(from, to string) (datesTempo TdTempo, err error) {
 					continue
 				}
 				datesTempo[dt] = icol
-
-				nbJour++
-
 				tempoProgress.SetValue(nbJour / 365)
-				time.Sleep(time.Millisecond * 15)
+				time.Sleep(time.Millisecond * 5)
+				nbJour++
 			}
 			fromTempo = fromTempo.Add(time.Hour * 24)
 		}
+		tempoProgress.SetValue(nbJour / 365)
+		time.Sleep(time.Millisecond * 5)
 	}
 	//  Sauvegarde fichier Tempo
 	saveDateTempo(datesTempo)

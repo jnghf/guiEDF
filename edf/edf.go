@@ -48,15 +48,13 @@ type EdfFares struct {
 	DateFare  time.Time
 }
 
-var edfTarifs = EdfFares{
-	BaseFare:  make(map[string]BasePrice),
-	HchpFare:  make(map[string]HcHpPrice),
-	TempoFare: make(map[string]TempoPrice),
-}
+var (
+	edfTarifs EdfFares
 
-var data []string
+	data []string
 
-var powerSelection string
+	powerSelection string
+)
 
 /*
 Trouver les prix en fonction de la puissance souscrite
@@ -175,7 +173,8 @@ depuis données Web EDF
 func fetchBase(doc *goquery.Document) {
 
 	tb := doc.Find(".table--responsive :contains('par EDF en option base')").Find("tbody").First()
-	e := BasePrice{}
+	e := BasePrice{} ////
+	c := make(map[string]BasePrice)
 
 	tb.Find("tr").Each(func(iy int, tr *goquery.Selection) {
 		hh := tr.Find("th strong")
@@ -188,7 +187,8 @@ func fetchBase(doc *goquery.Document) {
 			}
 		})
 
-		edfTarifs.BaseFare[hh.Text()] = e
+		c[hh.Text()] = e
+		edfTarifs.BaseFare = c
 	})
 }
 
@@ -199,6 +199,7 @@ func fetchHcHp(doc *goquery.Document) {
 
 	tb := doc.Find(".table--responsive :contains('par EDF en option HP/HC')").Find("tbody").First()
 	e := HcHpPrice{}
+	c := make(map[string]HcHpPrice)
 
 	tb.Find("tr").Each(func(iy int, tr *goquery.Selection) {
 		hh := tr.Find("th strong")
@@ -212,7 +213,9 @@ func fetchHcHp(doc *goquery.Document) {
 				e.Hp = stringEuroToFloat(td.Text())
 			}
 		})
-		edfTarifs.HchpFare[hh.Text()] = e
+
+		c[hh.Text()] = e
+		edfTarifs.HchpFare = c
 	})
 }
 
@@ -223,6 +226,7 @@ func fetchTempo(doc *goquery.Document) {
 
 	tb := doc.Find(".table--responsive :contains('Grille tarifaire de l\\'offre Tempo par EDF')").Find("tbody").First()
 	e := TempoPrice{}
+	c := make(map[string]TempoPrice)
 
 	tb.Find("tr").Each(func(iy int, tr *goquery.Selection) {
 		hh := tr.Find("th strong")
@@ -244,7 +248,9 @@ func fetchTempo(doc *goquery.Document) {
 				e.RedHP = stringEuroToFloat(td.Text())
 			}
 		})
-		edfTarifs.TempoFare[hh.Text()] = e
+
+		c[hh.Text()] = e
+		edfTarifs.TempoFare = c
 	})
 }
 

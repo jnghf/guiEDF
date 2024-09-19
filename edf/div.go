@@ -2,7 +2,6 @@ package edf
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -91,7 +90,6 @@ func overlapSlots(entry string) bool {
 	l := len(hs)
 	for i := 0; i < l-1; i++ {
 		for j := i + 1; j < l; j++ {
-			fmt.Println(i, j)
 			if overlap(hs[i], hs[j]) {
 				return true
 			}

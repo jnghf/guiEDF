@@ -41,7 +41,9 @@ Créneaux H.Creuses:
         hh:mn-hh:mn ou 
         hh:mn-hh:mn,hh:mn-hh:mn ou 
         hh:mn-hh:mn,hh:mn-hh:mn,hh:mn-hh:mn
-    Le bon formatage de votre saisie sera indiqué
+    Le bon formatage de votre saisie sera indiqué.
+    Un appui sur le bouton "Créneaux H.Creuses" permet de selectionner 
+    ou de modifier graphiquement les créneaux.
 
 Tarifs EDF au:  
     Affichage de la date des derniers tarifs connus
